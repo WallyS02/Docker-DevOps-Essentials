@@ -71,12 +71,48 @@ Popular minimal images:
 * **Scratch** - completely empty image, for applications that do not require OS
 * **Distroless** - by Google, images that contain only the application and its dependencies, without the shell, system packages, or tools.
 ### Multi-stage builds
+Multi-stage builds allow for separating different parts of image creation. Products of stages can be copied to stages after them. Benefits of doing so are: removing unnecessary dependencies, tools, temporary files, etc. that were only needed during application building phase, not in runtime phase, so it optimizes final image size and container efficiency, launch speed and attack surface.\
+Example Dockerfile using Multi-stage build:
+```
+FROM <base_build_image> AS builder
+
+WORKDIR <working_directory_path>
+
+COPY <source_path> <destination_path>
+
+RUN <build_command>
+
+#---------------------------------------------------
+FROM <minimal_base_image>
+
+WORKDIR <working_directory_path>
+
+COPY --from=builder <source_path> <destination_path>
+
+ENTRYPOINT ["run", "command"]
+```
 ### Multi-platform builds
+A multi-platform build refers to a single build invocation that targets multiple different operating system or CPU architecture combinations. When building images, this lets you create a single image that can run on multiple platforms, such as linux/amd64, linux/arm64, and windows/amd64.\
+To use multi-platform build you need to create special builder:
+```
+docker buildx create --name <name> --driver <driver> --bootstrap --use
+```
+Possible drivers are: docker-container, kubernetes, remote.\
+To build multi-platform image use:
+```
+docker buildx build --platform <platforms> -t <tag> .
+```
+Platforms can be also declared in Dockerfile by using:
+```
+FROM --platform=$TARGETPLATFORM <image>
+```
+where $TARGETPLATFORM variable is determining desired platform of base image.
 ### Image commands
 * **docker images** - lists all images
 * **docker pull \<image\>** - pulls image from registry
 * **docker rmi \<image\>** - removes image
 * **docker build -t \<tag_name\> .** - builds Dockerfile into image, -t stands for new image tag name
+* **docker buildx build --platform <platforms> -t <tag> .** - builds Dockerfile into multi-platform image, --platform stands for desired image platforms, -t stands for new image tag name
 * **docker inspect \<image_name\>** - displays detailed information about image
 ## Storage
 Volumes are persistent data stores for containers, created and managed by Docker. You can create a volume explicitly using the docker volume create command, or Docker can create a volume during container or service creation.
