@@ -150,8 +150,15 @@ To analyse image vulnerabilities:
 ```
 docker scout cves <image>
 ```
-### Rootless mode
-### Security commands
+### Running containers as a non-privileged user
+By default, a container runs as a root user. Containers running as a non-privileged user have limited permissions, which increases host security and container isolation. It is especially important in production environments.\
+This problem can be solved by adding new non-privileged user and group in container and set new user with USER Dockerfile command, for example:
+```
+FROM ubuntu:latest
+RUN apt-get -y update
+RUN groupadd -r user && useradd -r -g user user
+USER user
+```
 ## Docker Compose
 Docker Compose is a tool for defining and running multi-container applications.\
 Compose simplifies the control of your entire application stack, making it easy to manage services, networks, and volumes in a single, comprehensible YAML configuration file. Then, with a single command, you create and start all the services from your configuration file.\
