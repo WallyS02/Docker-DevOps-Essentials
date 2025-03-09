@@ -112,7 +112,7 @@ where $TARGETPLATFORM variable is determining desired platform of base image.
 * **docker pull \<image\>** - pulls image from registry
 * **docker rmi \<image\>** - removes image
 * **docker build -t \<tag_name\> .** - builds Dockerfile into image, -t stands for new image tag name
-* **docker buildx build --platform <platforms> -t <tag> .** - builds Dockerfile into multi-platform image, --platform stands for desired image platforms, -t stands for new image tag name
+* **docker buildx build --platform \<platforms\> -t \<tag\> .** - builds Dockerfile into multi-platform image, --platform stands for desired image platforms, -t stands for new image tag name
 * **docker inspect \<image_name\>** - displays detailed information about image
 ## Storage
 Volumes are persistent data stores for containers, created and managed by Docker. You can create a volume explicitly using the docker volume create command, or Docker can create a volume during container or service creation.
