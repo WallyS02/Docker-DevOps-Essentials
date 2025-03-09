@@ -137,6 +137,19 @@ An image registry is a centralized location for storing and sharing your contain
 * **docker push \<registry_url/user/tag\:version\>** - pushes image to registry
 ## Security
 ### Docker Scout
+Container images consist of layers and software packages, which are susceptible to vulnerabilities. These vulnerabilities can compromise the security of containers and applications. Docker Scout is a solution that analyzes images and compiles an inventory of components, also known as a Software Bill of Materials (SBOM). The SBOM is matched against a continuously updated vulnerability database to pinpoint security weaknesses.\
+To enroll organization with Docker Scout:
+```
+docker scout enroll <organization_name>
+```
+To enable Docker Scout for Docker Hub image repository:
+```
+docker scout repo enable --org <organization_name> <organization_name>/<repository_name>
+```
+To analyse image vulnerabilities:
+```
+docker scout cves <image>
+```
 ### Rootless mode
 ### Security commands
 ## Docker Compose
