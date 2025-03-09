@@ -152,7 +152,7 @@ docker scout cves <image>
 ```
 ### Running containers as a non-privileged user
 By default, a container runs as a root user. Containers running as a non-privileged user have limited permissions, which increases host security and container isolation. It is especially important in production environments.\
-This problem can be solved by adding new non-privileged user and group in container and set new user with USER Dockerfile command, for example:
+This problem can be solved by adding new non-privileged user and group in container and set new user with USER Dockerfile instruction, for example:
 ```
 FROM ubuntu:latest
 RUN apt-get -y update
