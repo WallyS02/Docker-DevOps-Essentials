@@ -65,6 +65,11 @@ EXPOSE <port_number>
 ENTRYPOINT ["command", "in", "parts"]
 ```
 ### Minimal base images
+It is worth using minimal base images when possible, reducing unnecessary data, increasing the efficiency and speed of a container, and reducing the container attack surface.\
+Popular minimal images:
+* **Alpine Linux** - light Linux distribution, for common Linux usage
+* **Scratch** - completely empty image, for applications that do not require OS
+* **Distroless** - by Google, images that contain only the application and its dependencies, without the shell, system packages, or tools.
 ### Multi-stage builds
 ### Multi-platform builds
 ### Image commands
