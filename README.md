@@ -27,6 +27,43 @@ Containerization is the process of running applications in lightweight, isolated
 * **docker system prune** - removes unused Docker data - images, containers, networks, volumes
 ## Images
 ### Dockerfile
+Basic Dockerfile instructions:
+* **FROM [--platform=\<platform\>] \<image\> [AS \<name\>]** - determines base image that will be used by new image, in multi-stage builds it creates new build from base image
+* **RUN [OPTIONS] \<command\>** - executes build shell commands
+* **COPY [OPTIONS] \<src\> \<dest\>** - copies files and directories from host to container
+* **ADD [OPTIONS] \<src\> \<dest\>** - similar to COPY but it also works with remote resources and automatically unzips archives
+* **WORKDIR /path/to/workdir** - sets working directory for next instructions
+* **ENV \<key\>=\<value\> [\<key\>=\<value\>]** - sets environment variables
+* **EXPOSE \<port\> [\<port\>/\<protocol\>]** - defines ports in container that application will listen on
+* **CMD ["executable", "param1", "param2"]** - specifies default command that will be run after container launch, can be overwritten by user
+* **ENTRYPOINT ["executable", "param1", "param2"]** - similar to CMD but harder to overwrite, application entrypoint
+* **VOLUME /data** - creates volume mount
+* **LABEL \<key\>=\<value\> [\<key\>=\<value\>]** - adds metadata to an image
+* **USER \<user\>[:\<group\>]** - sets user and group id to use as the default user and group
+* **ARG \<name\>[=\<default value\>] [\<name\>[=\<default value\>]]** - defines variable that can be passed at build-time to the builder with the docker build command using the --build-arg <varname>=<value> flag\
+\
+Example Dockerfile:
+```
+FROM <base_image>
+
+ARG <name>
+
+LABEL <key> <value>
+
+USER <username>
+
+WORKDIR <working_directory_path>
+
+COPY <source_path> <destination_path>
+
+RUN <command>
+
+ENV <ENVIRONMENT_VARIABLE>=<value>
+
+EXPOSE <port_number>
+
+ENTRYPOINT ["command", "in", "parts"]
+```
 ### Minimal base images
 ### Multi-stage builds
 ### Multi-platform builds
@@ -81,8 +118,8 @@ services:
   <service_name>:
     image: <user/image_name:version>
     environment:
-      ENVIRONMENT_VARIABLE_1: value1
-      ENVIRONMENT_VARIABLE_2: value2
+      <ENVIRONMENT_VARIABLE_1>: <value1>
+      <ENVIRONMENT_VARIABLE_2>: <value2>
     volumes:
       - <volume_name>:/container/path/to/volume
     networks:
