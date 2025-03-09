@@ -29,6 +29,7 @@ Containerization is the process of running applications in lightweight, isolated
 ### Dockerfile
 ### Minimal base images
 ### Multi-stage builds
+### Multi-platform builds
 ### Image commands
 * **docker images** - lists all images
 * **docker pull \<image\>** - pulls image from registry
@@ -58,9 +59,41 @@ An image registry is a centralized location for storing and sharing your contain
 * **docker push \<registry_url/user/tag\:version\>** - pushes image to registry
 ## Security
 ### Docker Scout
-### User namespaces
+### Rootless mode
 ### Security commands
 ## Docker Compose
+Docker Compose is a tool for defining and running multi-container applications.\
+Compose simplifies the control of your entire application stack, making it easy to manage services, networks, and volumes in a single, comprehensible YAML configuration file. Then, with a single command, you create and start all the services from your configuration file.\
+Compose configuration consists of services, volumes and networks. Services represent containers that application consists of. Volumes are defined persistent data stores. Networks allow containers for communication by services names. Docker Compose automatically creates network for application stack to allow it's components to communicate.\
+Example Docker Compose YAML file:
+```
+version: '3'
+services:
+  <service_name>:
+    image: <user/image_name:version>
+    ports:
+      - <host_port_number>:<container_port_number>
+    volumes:
+      - /host/path/to/volume:/container/path/to/volume
+    networks:
+      - <network_name>
+
+  <service_name>:
+    image: <user/image_name:version>
+    environment:
+      ENVIRONMENT_VARIABLE_1: value1
+      ENVIRONMENT_VARIABLE_2: value2
+    volumes:
+      - <volume_name>:/container/path/to/volume
+    networks:
+      - <network_name>
+
+volumes:
+  <volume_name>:
+
+networks:
+  <network_name>:
+```
 ### Docker Compose commands
 * **docker compose up** - creates and starts services defined in yaml docker-compose file
 * **docker compose down** - stops and removes services defined in yaml docker-compose file
