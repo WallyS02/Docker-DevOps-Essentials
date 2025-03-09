@@ -11,7 +11,7 @@ Containerization is the process of running applications in lightweight, isolated
   - **docker run -d --name \<name\> \<image\>** - option that names container
   - **docker run -d -e \<VARIABLE=value\> \<image\>** - option that sets environment variables container
   - **docker run -d --env-file \<name\> \<image\>** - option that reads environment variables from given file
-  - **docker run -d -v \<host_path\:container_path\> \<image\>** - option that mounts volume into container
+  - **docker run -d -v \<volume_name_or_host_path\:container_path\> \<image\>** - option that mounts volume into container
   - **docker run -d --network=\<network_name\> \<image\>** - option that connects container to network
   - **docker run -d -p \<host_port\:container_port\> \<image\>** - option that binds container's and host's ports
 * **docker stop \<container_name\>** - stops running container
@@ -20,7 +20,7 @@ Containerization is the process of running applications in lightweight, isolated
   - **docker ps -a** - lists all containers, including stopped ones
 * **docker rm \<container_name\>** - removes container
 * **docker stats** - displays real-time statistics of containers
-* **docker inspect \<container_or_image_name\>** - displays detailed information about container or image
+* **docker inspect \<container_name\>** - displays detailed information about container or image
 * **docker logs \<container_name\>** - displays container logs
 * **docker exec \<container_name\> \<command\>** - executes command in container
   - **docker exec -it \<container_name\> /bin/bash** - opens interactive terminal in container
@@ -34,18 +34,24 @@ Containerization is the process of running applications in lightweight, isolated
 * **docker pull \<image\>** - pulls image from registry
 * **docker rmi \<image\>** - removes image
 * **docker build -t \<tag_name\> .** - builds Dockerfile into image, -t stands for new image tag name
+* **docker inspect \<image_name\>** - displays detailed information about image
 ## Storage
+Volumes are persistent data stores for containers, created and managed by Docker. You can create a volume explicitly using the docker volume create command, or Docker can create a volume during container or service creation.
 ### Storage commands
 * **docker volume ls** - lists all volumes
 * **docker volume create \<volume_name\>** - creates volume
 * **docker volume rm \<volume_name\>** - removes volume
+* **docker volume inspect \<volume_name\>** - displays detailed information about volume
 ## Networking
+Container networking refers to the ability for containers to connect to and communicate with each other, or to non-Docker workloads.
 ### Networking commands
 * **docker network ls** - lists all networks
 * **docker network create \<network_name\>** - creates network
 * **docker network connect \<network_name\> \<container_name\>** - connects container to network
 * **docker network disconnect \<network_name\> \<container_name\>** - disconnects container from network
+* **docker network inspect \<network_name\>** - displays detailed information about network
 ## Registry
+An image registry is a centralized location for storing and sharing your container images. It can be either public or private. Docker Hub is a public registry that anyone can use and is the default registry.
 ### Registry commands
 * **docker login** - authenticates to a registry
 * **docker tag \<image\> \<user/tag\:version\>** - tags image with given tag
@@ -53,7 +59,6 @@ Containerization is the process of running applications in lightweight, isolated
 ## Security
 ### Docker Scout
 ### User namespaces
-### Docker Secrets
 ### Security commands
 ## Docker Compose
 ### Docker Compose commands
