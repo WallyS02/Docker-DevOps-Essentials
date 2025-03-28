@@ -1,4 +1,4 @@
-# Docker-DevOps-Essentials
+# Docker DevOps Essentials
 ## If I'll find any other feature to be useful - it'll surely be added!
 ## What is containerization?
 Containerization is the process of running applications in lightweight, isolated environments that share the host operating system kernel. Containers contain only the application and its dependencies. At the host operating system level, containerization works by creating an isolated group of processes, which are applications running in containers, where communication between these processes is possible. Containerization works through a container engine that runs on the host system. Containers are lightweight, launched quickly, portable, efficient and scalable in relation to virtual machines. Still, they're less isolated from host OS kernel than VM's. Docker is a platform of containerization.
